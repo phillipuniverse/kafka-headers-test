@@ -1,0 +1,17 @@
+Demonstrates a failing test with the `ID` and `TIMESTAMP` headers not being propagated with Spring Kafka, and specifically the Spring Cloud Stream Kafka Bindings.
+
+Run the tests with:
+
+[source,console]
+----
+./mvnw test
+----
+
+The test in `DemoApplicationTests` does the following:
+. Starts up embedded Kafka with channels bound to consumer groups
+. Creates a message using Spring Integration's `MessageBuilder` and asserts that the `TIMESTAMP` and `ID` are there before sending
+. Uses the Spring Cloud Stream bindings to send the message to the Kafka broker
+. Once the message is consumed by the listener, that is saved off for later assertions
+. Assertions are made to demonstrate that the `ID` and `TIMESTAMP` are not there, but a custom header and payload are
+
+https://stackoverflow.com/questions/57974910/why-are-the-timestamp-and-id-headers-from-spring-integration-unmapped-in-spring[Related Stack Overflow issue]
