@@ -1,4 +1,4 @@
-Demonstrates a failing test with the `ID` and `TIMESTAMP` headers not being propagated with Spring Kafka, and specifically the Spring Cloud Stream Kafka Bindings.
+Demonstrates a  test for the the `ID` and `TIMESTAMP` headers propagated to consumers with Spring Cloud Stream Kafka Bindings.
 
 Run the tests with:
 
@@ -15,3 +15,7 @@ The test in `DemoApplicationTests` does the following:
 . Assertions are made to demonstrate that the `ID` and `TIMESTAMP` are not there, but a custom header and payload are
 
 https://stackoverflow.com/questions/57974910/why-are-the-timestamp-and-id-headers-from-spring-integration-unmapped-in-spring[Related Stack Overflow issue]
+
+## Resolution
+
+This has been resolved by setting https://cloud.spring.io/spring-cloud-static/spring-cloud-stream-binder-kafka/2.2.1.RELEASE/spring-cloud-stream-binder-kafka.html#kafka-consumer-properties[`spring.cloud.stream.kafka.default.consumer.standard-headers=both`].

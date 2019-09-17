@@ -31,7 +31,10 @@ import com.example.demo.DemoApplication.MessageRequestProducer;
                 "spring.autoconfigure.exclude=org.springframework.cloud.stream.test.binder.TestSupportBinderAutoConfiguration",
                 "spring.cloud.stream.bindings.messageRequestInput.group=consumer",
                 "spring.cloud.stream.bindings.messageRequestInput.destination=messages",
-                "spring.cloud.stream.bindings.messageRequestOutput.destination=messages"
+                "spring.cloud.stream.bindings.messageRequestOutput.destination=messages",
+                "spring.cloud.stream.kafka.default.consumer.standard-headers=both" // default prefix
+                                                                                  // from
+                                                                                  // org.springframework.cloud.stream.binder.kafka.properties.KafkaExtendedBindingProperties
         })
 public class DemoApplicationTests {
 
@@ -60,8 +63,13 @@ public class DemoApplicationTests {
         assertThat(received.getHeaders().get("CUSTOM_HEADER")).isEqualTo("val");
 
         // should be automatic
-        assertThat(received.getHeaders().get(MessageHeaders.TIMESTAMP)).isNotNull();
-        assertThat(received.getHeaders().get(MessageHeaders.ID)).isNotNull();
+        assertThat(received.getHeaders().get(MessageHeaders.TIMESTAMP))
+                .withFailMessage("Could not find a TIMESTAMP header")
+                .isNotNull();
+        assertThat(received.getHeaders().get(MessageHeaders.ID))
+                .withFailMessage("Could not find an ID header")
+
+                .isNotNull();
     }
 
 }
