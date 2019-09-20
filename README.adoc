@@ -8,6 +8,7 @@ Run the tests with:
 ----
 
 The test in `DemoApplicationTests` does the following:
+
 . Starts up embedded Kafka with channels bound to consumer groups
 . Creates a message using Spring Integration's `MessageBuilder` and asserts that the `TIMESTAMP` and `ID` are there before sending
 . Uses the Spring Cloud Stream bindings to send the message to the Kafka broker
